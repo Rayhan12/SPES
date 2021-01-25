@@ -1,0 +1,23 @@
+For Using this project please Follow the instructions.
+1/ Open the project in any java IDE 
+
+2/ Import the needed JAR files. They are attached with this project .
+There are 4 jar files in total. 2 for MySQL JDBC connection 1 for excel file reading
+Named “Gembox” and java 1.8 JDK
+
+3/ We have used local database for this project the database code is given 
+Please implement it as is in your local MySQL workbench
+
+4/ In the project locate the Database class. There are 2 Database files.
+We are using them as our Database connection class.
+Locate them and change the id and password .
+
+("jdbc:mysql://localhost:3306/spes","ID","Password");
+
+5/Upload all the stored procedures from Query text file as is.
+
+6/ import the dummy data in the database table through MySQL import wizrd
+
+all done
+
+Thank you………

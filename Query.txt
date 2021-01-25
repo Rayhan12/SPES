@@ -1,0 +1,508 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Achieved_plo_by_student`(inout id int)
+BEGIN
+select PLO_id , round((mark/PLO_fmark)*100,2) As Achived from(
+Select sum((obtain*100)/full_mark) Mark , PLO_id , PLO_Fmark , num from(
+select  answer.omark as obtain , answer.fmark as full_mark , co.pl_id as PLO_id , plo.fmark as PLO_Fmark , plo.pl_no as num
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on  plo.pl_id = co.pl_id
+where st_id = id)As count_table
+group by PLO_id) As count_table_two
+order by num;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Average_achieved_plo_by_course`(inout course_name varchar(20))
+BEGIN
+Select round(((Average_achived/Full_Marks)*100),3) As Achieved,Course_id ,  PLO_count From(
+Select (Total_achived/S_number) As Average_achived ,Course_id , PLO_count , Full_Marks , num from(
+Select sum(achived) Total_achived , Course_id , PLO_count , count(PLO_count) AS S_number , Full_Marks , num from (
+select st_id , ((answer.omark*100)/answer.fmark) as achived , co.c_id as Course_id , plo.pl_id as PLO_count , plo.fmark As Full_Marks , plo.pl_no as num
+From reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = Answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on co.pl_id = plo.pl_id
+where co.c_id = course_name
+order by st_id)as Count_table
+group by num) AS Count_table_two ) As count_table_three;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Average_plo_by_course`(inout course_id varchar(15))
+BEGIN
+select sem , year , co.c_id , Round(((co.fmark/plo.fmark)*100),3) As Achievable , plo.pl_id As PLO_ID 
+From reg
+inner join section on section.s_id = reg.s_id
+inner join co on section.c_id = co.c_id
+inner join plo on plo.pl_id = co.pl_id
+where section.c_id = course_id
+group by sem , year , co.pl_id
+order by plo.pl_no; 
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Average_plo_by_student`(inout id int)
+BEGIN
+select round(sum(Achived)/count(PLO_id),2) As Average from(
+select PLO_id , round((mark/PLO_fmark)*100,2) As Achived from(
+Select sum((obtain*10)/full_mark) Mark , PLO_id , PLO_Fmark from(
+select  answer.omark as obtain , answer.fmark as full_mark , co.pl_id as PLO_id , plo.fmark as PLO_Fmark
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on  plo.pl_id = co.pl_id
+where st_id = id)As count_table
+group by PLO_id) As count_table_two
+order by PLO_id) As Count_table_three;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AveragePLO`()
+BEGIN
+select plo.pl_id , plo.fmark As 'Full Mark' , Sum(Answer.omark*100/Answer.fmark) As 'Obtained Mark' ,  (((Sum(Answer.omark*100/Answer.fmark)*100)/plo.fmark)/10) As 'PLO in %' from reg inner join Answer on Answer.r_id = reg.r_id inner join Question On  Question.q_id = Answer.q_id inner join Co on CO.co_id = Question.co_id inner join plo on plo.pl_id = co.pl_id group by plo.pl_id order by plo.pl_id asc;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Count_course_section_offerd`(inout courseID varchar(20))
+BEGIN
+select count(*)as cou from section
+where c_id = courseID;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_average_plo_contribution`(inout courseID varchar(20))
+BEGIN
+Select round(sum(mark)/count(mark),2) as Average from(
+select plos , (cmark*100/tmark) as mark from(
+select co.fmark As cmark , co.pl_id as plos , plo.fmark as tmark
+from co
+inner join plo on co.pl_id = plo.pl_id
+where co.c_id = courseID)as Count_table)count_table_two;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_PLO_Contribution_BY_plo`(inout courseID varchar(20))
+BEGIN
+select plos , round((cmark*100/tmark),2) as mark from(
+select co.fmark As cmark , co.pl_id as plos , plo.fmark as tmark
+from co
+inner join plo on co.pl_id = plo.pl_id
+where co.c_id = CourseID
+order by plo.pl_no)as Count_table ;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_related_PLO_LIST`(inout courseID varchar(20))
+BEGIN
+select plo.pl_id as plos
+from co 
+inner join plo on co.pl_id = plo.pl_id
+where c_id = courseID
+order by pl_no;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_Semester_wise_PLO_achieved`(inout plo_id varchar(10) , inout CourseID varchar(20))
+BEGIN
+Select sem , year , count(student) as PLO_Count from( 
+Select student , sum(mark) as coMark , co , plo , sem ,year from(
+select st_id as student , (answer.omark*100/answer.fmark) as mark, reg.s_id as sectionID, co.co_id as co , co.pl_id as PLO , sem ,year
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join section on section.s_id = reg.s_id
+where co.c_id = CourseID AND co.pl_id = plo_id) as Count_table
+group by co , student
+having comark>39) as count_table_two
+group by co;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_Semester_wise_PLO_attempt`(inout plo_id varchar(10) , inout CourseID varchar(20) )
+BEGIN
+Select sem , year , count(countable) AS PLO_Count, PLO_ID from (
+Select distinct st_id , sem , year , co.pl_id as countable , co.pl_id AS PLO_ID
+From REG
+inner join section on reg.s_id = section.s_id
+inner join course on course.c_id = section.c_id
+inner join co on co.c_id = course.c_id
+where co.pl_id = plo_id and course.c_id = CourseID) As count_table
+group by sem , year;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_Wise_PLO_Contribution`(inout courseID varchar(20) )
+BEGIN
+select plos , round((m*100/v),2) As final_marks from( 
+select plos , mark as m,vmark as v from(
+select plos , round((cmark*100/fmark),2) as mark , vmark from(
+select co.fmark As cmark , co.pl_id as plos , plo.fmark as fmark
+from co
+inner join plo on co.pl_id = plo.pl_id
+where co.c_id = courseID)as Count_tab,(
+select sum(cmark*100/fmark) as vmark from(
+select co.fmark as cmark, co.pl_id, plo.fmark as fmark
+from co
+inner join plo on co.pl_id = plo.pl_id
+where co.c_id = courseID)as Count_tab_2) as count_table_three) as count_tab4) as t;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_wise_plo_count`(inout courseID varchar(20))
+BEGIN
+select count(pl_id) As count 
+from co
+where c_id = courseID;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Course_wise_plo_mark_For_table`(inout id int , inout courseid varchar(20))
+BEGIN
+select co.c_id As course, co.pl_id as PLOID ,(answer.omark*100/answer.fmark) As mark 
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on co.pl_id = plo.pl_id
+where st_id = id AND  co.c_id = courseid
+union
+select p_id, pl_id , omark  
+from plo
+where pl_id NOT IN (
+select co.pl_id as PLOID 
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on co.pl_id = plo.pl_id
+where st_id = id AND  co.c_id = courseid
+order by pl_no);
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_avg_plo_all_student`(inout total_num int )
+BEGIN
+select round((sum(plo)/count(id)/total_num),3) As 'number' from(select plo.pl_id AS ID , plo.fmark As 'Full Mark' ,  (((Sum(Answer.omark*100/Answer.fmark)*100)/plo.fmark)/10) As 'PLO' from reg inner join Answer on Answer.r_id = reg.r_id inner join Question On  Question.q_id = Answer.q_id inner join Co on CO.co_id = Question.co_id inner join plo on plo.pl_id = co.pl_id group by plo.pl_id order by plo.pl_id asc) As avgtab ;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_avg_plo_all_student`(inout total_num int )
+BEGIN
+select round((sum(plo)/count(id)/total_num),3) As 'number' from(select plo.pl_id AS ID , plo.fmark As 'Full Mark' ,  (((Sum(Answer.omark*100/Answer.fmark)*100)/plo.fmark)/10) As 'PLO' from reg inner join Answer on Answer.r_id = reg.r_id inner join Question On  Question.q_id = Answer.q_id inner join Co on CO.co_id = Question.co_id inner join plo on plo.pl_id = co.pl_id group by plo.pl_id order by plo.pl_id asc) As avgtab ;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Get_Semester`(inout id int)
+BEGIN
+select count(*) As semester from(
+Select st_id , sem , year
+from reg
+inner join section on reg.s_id = section.s_id
+where st_id = id
+group by sem ,year)As Count_table;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Max_plo_by_student`(inout id int )
+BEGIN
+select PLO_id , round((mark/PLO_fmark)*100,2) As Achived from(
+Select sum((obtain*100)/full_mark) Mark , PLO_id , PLO_Fmark from(
+select  answer.omark as obtain , answer.fmark as full_mark , co.pl_id as PLO_id , plo.fmark as PLO_Fmark
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on  plo.pl_id = co.pl_id
+where st_id = id)As count_table
+group by PLO_id) As count_table_two
+order by Achived asc;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Min_plo_by_student`(inout id int )
+BEGIN
+select PLO_id , round((mark/PLO_fmark)*100,2) As Achived from(
+Select sum((obtain*100)/full_mark) Mark , PLO_id , PLO_Fmark from(
+select  answer.omark as obtain , answer.fmark as full_mark , co.pl_id as PLO_id , plo.fmark as PLO_Fmark
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on  plo.pl_id = co.pl_id
+where st_id = id)As count_table
+group by PLO_id) As count_table_two
+order by Achived desc;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Plo_achivement_by_student`(inout id int)
+BEGIN
+select PLO_id , round((mark/PLO_fmark)*100,2) As Achived from(
+Select sum((obtain*100)/full_mark) Mark , PLO_id , PLO_Fmark from(
+select  answer.omark as obtain , answer.fmark as full_mark , co.pl_id as PLO_id , plo.fmark as PLO_Fmark
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on  plo.pl_id = co.pl_id
+where st_id = id)As count_table
+group by PLO_id) As count_table_two
+order by PLO_id;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_procedure`(inout course_name varchar(20))
+BEGIN
+Select((Average_achived/Full_Marks)*100) As Achieved,Course_id ,  PLO_count From(
+Select (Total_achived/S_number) As Average_achived ,Course_id , PLO_count , Full_Marks from(
+Select sum(achived) Total_achived , Course_id , PLO_count , count(PLO_count) AS S_number , Full_Marks from (
+select st_id , ((answer.omark*100)/answer.fmark) as achived , co.c_id as Course_id , plo.pl_id as PLO_count , plo.fmark As Full_Marks
+From reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = Answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on co.pl_id = plo.pl_id
+where co.c_id = course_name
+order by st_id)as Count_table
+group by PLO_count) AS Count_table_two ) As count_table_three;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PLO_Gained_From_Course`(INOUT id int , inout selectedplo varchar(20))
+BEGIN
+Select course ,round((mark*100/fmark),2) AS cper , round((fmark*100/PLOFMARK),2) AS pper from(
+select course ,mark , fmark ,PLOFMARK from(
+Select (answer.omark*100/answer.fmark) As mark, co.c_id As course , co.co_id , plo.pl_id , plo.fmark As PLOFMARK
+from reg
+inner join answer on reg.r_id = answer.r_id 
+inner join question on answer.q_id = question.q_id
+inner join co on question.co_id = co.co_id
+inner join plo on plo.pl_id = co.pl_id
+where st_id = id AND plo.pl_id = selectedplo) As Count_table , (
+Select sum(answer.omark*100/answer.fmark) As fmark, co.c_id As fcourse , co.co_id , plo.pl_id 
+from reg
+inner join answer on reg.r_id = answer.r_id 
+inner join question on answer.q_id = question.q_id
+inner join co on question.co_id = co.co_id
+inner join plo on plo.pl_id = co.pl_id
+where st_id = id AND plo.pl_id = selectedplo) AS Count_table_two) count_table_three ; 
+
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Plo_achivement_by_student`(inout id int)
+BEGIN
+select PLO_id , round((mark/PLO_fmark)*100,2) As Achived from(
+Select sum((obtain*100)/full_mark) Mark , PLO_id , PLO_Fmark from(
+select  answer.omark as obtain , answer.fmark as full_mark , co.pl_id as PLO_id , plo.fmark as PLO_Fmark
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+inner join plo on  plo.pl_id = co.pl_id
+where st_id = id)As count_table
+group by PLO_id) As count_table_two
+order by PLO_id;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PLO_Gained_From_Course`(INOUT id int , inout selectedplo varchar(20))
+BEGIN
+Select course ,round((mark*100/fmark),2) AS cper , round((fmark*100/PLOFMARK),2) AS pper from(
+select course ,mark , fmark ,PLOFMARK from(
+Select (answer.omark*100/answer.fmark) As mark, co.c_id As course , co.co_id , plo.pl_id , plo.fmark As PLOFMARK
+from reg
+inner join answer on reg.r_id = answer.r_id 
+inner join question on answer.q_id = question.q_id
+inner join co on question.co_id = co.co_id
+inner join plo on plo.pl_id = co.pl_id
+where st_id = id AND plo.pl_id = selectedplo) As Count_table , (
+Select sum(answer.omark*100/answer.fmark) As fmark, co.c_id As fcourse , co.co_id , plo.pl_id 
+from reg
+inner join answer on reg.r_id = answer.r_id 
+inner join question on answer.q_id = question.q_id
+inner join co on question.co_id = co.co_id
+inner join plo on plo.pl_id = co.pl_id
+where st_id = id AND plo.pl_id = selectedplo) AS Count_table_two) count_table_three ; 
+
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Semester_wise_PLO`(inout plo_id varchar(10))
+BEGIN
+
+Select sem , year , count(countable) AS PLO_Count, PLO_ID from (
+Select distinct st_id , sem , year , co.pl_id as countable , co.pl_id AS PLO_ID , s_no
+From REG
+inner join section on reg.s_id = section.s_id
+inner join course on course.c_id = section.c_id
+inner join co on co.c_id = course.c_id
+where co.pl_id = plo_id) As count_table
+group by year , sem
+order by s_no;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Semester_wise_plo_achived`(inout plo_id varchar(10))
+BEGIN
+Select sem , year , Count(st_id) as PLO_Count from(
+Select distinct st_id , sem , year , (SumGrade/relation) As Average, PLO_ID , s_no From(
+Select distinct st_id , sem , year , Sum(grade) sumGrade , Count(countable) As relation , PLO_ID , s_no From(
+Select distinct st_id , sem , year , ((answer.omark*100)/answer.fmark) As 'Grade' ,co.pl_id as countable , co.pl_id AS PLO_ID , s_no
+From REG
+inner join section on reg.s_id = section.s_id
+inner join course on course.c_id = section.c_id
+inner join co on co.c_id = course.c_id
+inner join answer on answer.r_id = reg.r_id
+where co.pl_id = plo_id) As Count_table
+group by st_id , sem , year) As Count_table_two
+Having Average>50) As Count_table_three
+group by year , sem
+order by s_no;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Semester_wise_PLO_achived_and_achivable_by_student`( inout id int , inout semester varchar(20) , inout Tyear int)
+BEGIN
+select plos , round((sem_full/PLOfmark)*100,2) AS achievable , round((marks/PLOfmark)*100,2) as achieved from( 
+select  plos, (times*100) sem_full , marks, PLOfmark , num from(
+select plos, count(plos) as times , sum(Mark) as marks,PLOfmark , sem , year , num from (
+select  co.pl_id As plos , (answer.omark*100/ answer.fmark) as Mark,plo.fmark As PLOfmark , sem , year , plo.pl_no as num
+from question 
+inner join co on co.co_id = question.co_id
+inner join answer on answer.q_id = question.q_id
+inner join reg on reg.r_id = answer.r_id
+inner join section on reg.s_id = section.s_id
+inner join plo on co.pl_id = plo.pl_id
+where st_id = id AND sem = semester AND year = Tyear) as Count_table
+group by plos) As count_table_two) as Count_table_three
+order by num;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Student_Semester_wise_PLO_achived`(inout id int)
+BEGIN
+select count(plos) As Achieved , sem ,year from(
+select plos, (mainMark/times) as tmark , sem , year ,s_no from( 
+Select plos ,count(plos) times, sum(mark) As mainMark , sem , year , s_no from(
+Select  Co ,plos , sum(marks) as mark  , sem , year , s_no from (
+select  (answer.omark*100/answer.fmark) as Marks ,co.co_id As Co ,co.pl_id As plos , sem , year , s_no
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on question.co_id = co.co_id
+inner join section on co.c_id = section.c_id
+where st_id = id
+group by co.co_id) as Count_table
+group by sem ,year , co
+order by sem ,year) As Count_table_two
+group by plos , sem , year)count_table_three
+having tmark>40)as Count_table_four 
+group by sem , year
+order by s_no;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Student_Semester_wise_PLO_attempt`(inout id int )
+BEGIN
+Select count(distinct PLOs) As attempts , sem ,year from (
+Select sem,year, co.pl_id AS PLOs , s_no
+from reg
+inner join section on section.s_id = reg.s_id
+inner join co on co.c_id = section.c_id
+where st_id = id)AS Count_table
+group by sem , year
+order by s_no;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `V_table_part_one`(inout courseID varchar(20))
+BEGIN
+Select concat(co,' & ',plo) nms ,count(student) snum from( 
+Select student , sum(mark) as coMark , co , plo from(
+select st_id as student , (answer.omark*100/answer.fmark) as mark, reg.s_id as sectionID, co.co_id as co , co.pl_id as PLO 
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+where co.c_id = courseID) as Count_table
+group by co , student
+having comark>39) as count_table_two
+group by co;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `V_table_part_two`(inout courseID varchar(20))
+BEGIN
+Select co,count(student) snum from( 
+Select student , sum(mark) as coMark , co , plo from(
+select st_id as student , (answer.omark*100/answer.fmark) as mark, reg.s_id as sectionID, co.co_id as co , co.pl_id as PLO 
+from reg
+inner join answer on answer.r_id = reg.r_id
+inner join question on question.q_id = answer.q_id
+inner join co on co.co_id = question.co_id
+where co.c_id = courseID) as Count_table
+group by co , student
+having comark<=39) as count_table_two
+group by co;
+END
+
+=========================================================================================================================================
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `V_table_total_students`(inout courseID varchar(20))
+BEGIN
+select count(st_id) as total 
+from section 
+inner join reg on reg.s_id = section.s_id
+where c_id = 'cse101';
+END
+
+=========================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
