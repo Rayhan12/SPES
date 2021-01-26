@@ -3,7 +3,8 @@ For Using this project please Follow the instructions.
 
 2/ Import the needed JAR files. They are attached with this project .
 There are 4 jar files in total. 2 for MySQL JDBC connection 1 for excel file reading
-Named “Gembox” and java 1.8 JDK
+Named “Gembox” and java 1.8 JDK 
+(Download java 1.8 JDK) https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 
 3/ We have used local database for this project the database code is given 
 Please implement it as is in your local MySQL workbench
