@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Management_UI.Management_main_UIController">
+   <left>
+      <AnchorPane fx:id="LeftAnchorPane" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="147.0" fitWidth="277.0" layoutX="18.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Image/Artboard%202.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" layoutX="-1.0" layoutY="221.0" prefHeight="318.0" prefWidth="300.0">
+               <children>
+                  <Button fx:id="Dashboard" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#DashboardOnClick" prefHeight="55.0" prefWidth="300.0" stylesheets="@../Assets/CSS/HomeButtonStyle.css" text="Dashboard" textFill="#4d4d4d">
+                     <font>
+                        <Font name="Segoe UI Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Icon/settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></Button>
+                  <Button fx:id="StudentEvaulation" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#StudentEvaulationOnClick" prefHeight="55.0" prefWidth="300.0" stylesheets="@../Assets/CSS/HomeButtonStyle.css" text="Student Evaluation" textFill="#4d4d4d">
+                     <font>
+                        <Font name="Segoe UI Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Icon/students-cap.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button fx:id="CourseEvaulation" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="103.0" mnemonicParsing="false" onAction="#CourseEvaulationOnClick" prefHeight="55.0" prefWidth="300.0" stylesheets="@../Assets/CSS/HomeButtonStyle.css" text="Course Evaluation" textFill="#4d4d4d">
+                     <font>
+                        <Font name="Segoe UI Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Icon/open-book%20(1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button fx:id="ProgramDesign" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="149.0" mnemonicParsing="false" onAction="#ProgramDesignOnClick" prefHeight="55.0" prefWidth="300.0" stylesheets="@../Assets/CSS/HomeButtonStyle.css" text="Program Design" textFill="#4d4d4d">
+                     <font>
+                        <Font name="Segoe UI Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Icon/settings-gears%20(1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button fx:id="EvaluationButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#EvaluationButtonOnClick" prefHeight="55.0" prefWidth="300.0" stylesheets="@../Assets/CSS/HomeButtonStyle.css" text="Evaluation" textFill="#4d4d4d">
+                     <font>
+                        <Font name="Segoe UI Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Icon/clipboard.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button fx:id="LogOut" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#LogOutOnClick" prefHeight="55.0" prefWidth="300.0" stylesheets="@../Assets/CSS/HomeButtonStyle.css" text="Logout" textFill="#4d4d4d">
+                     <font>
+                        <Font name="Segoe UI Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Assets/Icon/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+   </left>
+</BorderPane>

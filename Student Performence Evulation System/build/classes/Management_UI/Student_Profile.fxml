@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Management_UI.Student_ProfileController">
+   <children>
+      <AnchorPane layoutX="34.0" layoutY="41.0" prefHeight="290.0" prefWidth="495.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0.0cm;">
+         <effect>
+            <DropShadow color="#bfbfbf" offsetX="2.0" offsetY="2.0" />
+         </effect>
+         <children>
+            <ImageView fx:id="ProfileImage" fitHeight="150.0" fitWidth="144.0" layoutX="13.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Image/1x/male1.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="StudentName" layoutX="171.0" layoutY="33.0" prefHeight="38.0" prefWidth="288.0" text="Adnan Kabir" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI Bold" size="24.0" />
+               </font>
+            </Label>
+            <Line endX="-93.00001525878906" endY="-53.599998474121094" layoutX="257.0" layoutY="121.0" startX="193.79998779296875" startY="-53.599998474121094" strokeWidth="0.5" />
+            <Label layoutX="170.0" layoutY="83.0" prefHeight="19.0" prefWidth="95.0" text="Student ID:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="IDLable" layoutX="276.0" layoutY="83.0" prefHeight="19.0" prefWidth="152.0" text="1821383" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="105.0" prefHeight="19.0" prefWidth="95.0" text="Department:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="127.0" prefHeight="19.0" prefWidth="95.0" text="School:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="149.0" prefHeight="19.0" prefWidth="95.0" text="Email:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="171.0" prefHeight="19.0" prefWidth="95.0" text="Semester:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="193.0" prefHeight="19.0" prefWidth="95.0" text="Gender:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="215.0" prefHeight="19.0" prefWidth="95.0" text="Birthday:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="170.0" layoutY="238.0" prefHeight="19.0" prefWidth="95.0" text="Age:" textFill="#313030">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="SchoolLable" layoutX="276.0" layoutY="127.0" prefHeight="19.0" prefWidth="152.0" text="CSE" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="DepartmentLable" layoutX="276.0" layoutY="105.0" prefHeight="19.0" prefWidth="152.0" text="Engineering" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="EmailLable" layoutX="276.0" layoutY="149.0" prefHeight="19.0" prefWidth="152.0" text="1821383@iub.edu.bd" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="SemesterLable" layoutX="276.0" layoutY="171.0" prefHeight="19.0" prefWidth="152.0" text="5" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="GenderLable" layoutX="276.0" layoutY="193.0" prefHeight="19.0" prefWidth="152.0" text="Male" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="BirthdayLable" layoutX="276.0" layoutY="216.0" prefHeight="19.0" prefWidth="152.0" text="1997-06-02" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="AgeLable" layoutX="276.0" layoutY="238.0" prefHeight="19.0" prefWidth="152.0" text="24" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="34.0" layoutY="350.0" prefHeight="106.0" prefWidth="242.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0.0cm;">
+         <effect>
+            <DropShadow color="#bfbfbf" offsetX="2.0" offsetY="2.0" />
+         </effect>
+         <children>
+            <Label layoutX="17.0" layoutY="8.0" prefHeight="34.0" prefWidth="180.0" text="Most Achieved PLO" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="107.79998779296875" endY="0.399993896484375" layoutX="119.0" layoutY="41.0" startX="-101.00001525878906" startY="0.40000152587890625" stroke="#4d4d4d" strokeWidth="2.0" />
+            <Label fx:id="MostAchivedPloLable" layoutX="17.0" layoutY="53.0" prefHeight="39.0" prefWidth="95.0" text="PLO4" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="MostAchivedPloMarksLable" layoutX="117.0" layoutY="53.0" prefHeight="39.0" prefWidth="112.0" text="8.67" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="286.0" layoutY="349.0" prefHeight="106.0" prefWidth="242.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0.0cm;">
+         <effect>
+            <DropShadow color="#bfbfbf" offsetX="2.0" offsetY="2.0" />
+         </effect>
+         <children>
+            <Label layoutX="17.0" layoutY="8.0" prefHeight="34.0" prefWidth="180.0" text="Lest Achieved PLO" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="110.20001220703125" endY="0.399993896484375" layoutX="119.0" layoutY="41.0" startX="-101.00001525878906" startY="0.40000152587890625" stroke="#4d4d4d" strokeWidth="2.0" />
+            <Label fx:id="LestAchivedPloLable" layoutX="17.0" layoutY="53.0" prefHeight="39.0" prefWidth="95.0" text="PLO8" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="LestAchivedPloMarksLable" layoutX="117.0" layoutY="53.0" prefHeight="39.0" prefWidth="112.0" text="3.55" textFill="#4d4d4d">
+               <font>
+                  <Font name="Segoe UI Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="550.0" layoutY="41.0" prefHeight="415.0" prefWidth="1032.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0.0cm;">
+         <effect>
+            <DropShadow color="#bfbfbf" offsetX="2.0" offsetY="2.0" />
+         </effect>
+         <children>
+            <TabPane prefHeight="415.0" prefWidth="1016.0" stylesheets="@../Assets/CSS/TabPaneStyle.css" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="AchvsAvgPLO_BarChart" text="Achived vs Average PLO ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <BarChart fx:id="AchvsAverageBarChart" prefHeight="374.0" prefWidth="982.0" stylesheets="@../Assets/CSS/ChartStyle.css">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis minorTickCount="10" side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Semester wise PLO Achived">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <BarChart fx:id="SemWisePLO_BarChart" prefHeight="374.0" prefWidth="1016.0" stylesheets="@../Assets/CSS/ChartStyle.css">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis minorTickCount="10" side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                              <ComboBox fx:id="SelectSemester_ComboBox" layoutX="831.0" layoutY="-6.0" onAction="#SelectSemester_ComBoxOnSelect" prefHeight="39.0" prefWidth="170.0" promptText="Semester" style="-fx-background-color: #ffffff; -fx-border-width: 0 0  1px 0; -fx-border-color: #4d4d4d;" visibleRowCount="14" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="980.0" layoutY="479.0" prefHeight="538.0" prefWidth="602.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0.0cm;">
+         <effect>
+            <DropShadow color="#bfbfbf" offsetX="2.0" offsetY="2.0" />
+         </effect>
+         <children>
+            <AnchorPane layoutX="34.0" layoutY="14.0" prefHeight="39.0" prefWidth="361.0" style="-fx-background-color: #4d4d4d;">
+               <children>
+                  <Label layoutX="14.0" layoutY="6.0" prefHeight="28.0" prefWidth="271.0" text="PLO Gained From Courses" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <ComboBox fx:id="SelectPLO_ComboBox" layoutX="397.0" layoutY="14.0" onAction="#SelectPLO_ComboBoxOnSelect" prefHeight="39.0" prefWidth="170.0" promptText=" Select PLO" style="-fx-background-color: #ffffff; -fx-border-width: 0 0  1px 0; -fx-border-color: #4d4d4d;" visibleRowCount="14" />
+            <PieChart fx:id="PLOGainedFromCourses_PaiChart" layoutX="43.0" layoutY="98.0" prefHeight="402.0" prefWidth="532.0" />
+            <AnchorPane layoutX="209.0" layoutY="61.0" prefHeight="28.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="24.0" layoutY="5.0" prefHeight="18.0" prefWidth="76.0" text="Achieved:">
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="IndPLOAchivedPer" layoutX="100.0" layoutY="5.0" prefHeight="18.0" prefWidth="82.0" text="59.33">
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="34.0" layoutY="479.0" prefHeight="538.0" prefWidth="928.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0.0cm;">
+         <effect>
+            <DropShadow color="#bfbfbf" offsetX="2.0" offsetY="2.0" />
+         </effect>
+         <children>
+            <TabPane layoutY="-1.0" prefHeight="538.0" prefWidth="928.0" stylesheets="@../Assets/CSS/TabPaneStyle.css" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Expected vs Achived PLO">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="874.0">
+                           <children>
+                              <LineChart fx:id="ExpvsAchPLO_LineChart" layoutX="14.0" layoutY="7.0" prefHeight="478.0" prefWidth="902.0" stylesheets="@../Assets/CSS/ChartStyle.css">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Course Wise PLO Achived">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="849.0">
+                           <children>
+                              <TableView fx:id="TableView" prefHeight="498.0" prefWidth="928.0" stylesheets="@../Assets/CSS/TableStyletwo.css">
+                                <columns>
+                                  <TableColumn fx:id="CourseID" prefWidth="91.99996948242188" style="-fx-alignment: CENTER;" text="Course Id" />
+                                  <TableColumn fx:id="PLO1" prefWidth="62.400001525878906" style="-fx-alignment: CENTER;" text="PLO1" />
+                                    <TableColumn fx:id="PLO2" prefWidth="65.60000610351562" style="-fx-alignment: CENTER;" text="PLO2" />
+                                    <TableColumn fx:id="PLO3" prefWidth="64.800048828125" style="-fx-alignment: CENTER;" text="PLO3" />
+                                    <TableColumn fx:id="PLO4" prefWidth="60.7999267578125" style="-fx-alignment: CENTER;" text="PLO4" />
+                                    <TableColumn fx:id="PLO5" prefWidth="69.5999755859375" style="-fx-alignment: CENTER;" text="PLO5" />
+                                    <TableColumn fx:id="PLO6" prefWidth="63.20001220703125" style="-fx-alignment: CENTER;" text="PLO6" />
+                                    <TableColumn fx:id="PLO7" prefWidth="72.79998779296875" style="-fx-alignment: CENTER;" text="PLO7" />
+                                    <TableColumn fx:id="PLO8" prefWidth="71.20001220703125" style="-fx-alignment: CENTER;" text="PLO8" />
+                                    <TableColumn fx:id="PLO9" prefWidth="70.39996337890625" style="-fx-alignment: CENTER;" text="PLO9" />
+                                    <TableColumn fx:id="PLO10" prefWidth="65.5999755859375" style="-fx-alignment: CENTER;" text="PLO10" />
+                                    <TableColumn fx:id="PLO11" prefWidth="73.5999755859375" style="-fx-alignment: CENTER;" text="PLO11" />
+                                    <TableColumn fx:id="PLO12" prefWidth="66.4000244140625" style="-fx-alignment: CENTER;" text="PLO12" />
+                                </columns>
+                              </TableView>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

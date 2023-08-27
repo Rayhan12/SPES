@@ -1,0 +1,27 @@
+.button{
+    -fx-background-color:   #ffffff;
+    -fx-fill: #333F54;
+    -fx-padding: 0px 0px 0px 15px;
+}
+
+
+.button:hover{
+    -fx-background-color: #f7f7f7;
+    -fx-border-width: 0px 0px 0px 6px;
+    -fx-border-color: #5e5e5e; 
+        
+}
+
+.button:pressed{
+    -fx-background-color: #f1f1f1;
+    -fx-fill: #333F54;
+    
+}
+
+.button:active{   
+    -fx-background-color: #f7f7f7;
+    -fx-border-width: 0px 0px 0px 6px;
+    -fx-border-color: #5e5e5e;
+}
+
+

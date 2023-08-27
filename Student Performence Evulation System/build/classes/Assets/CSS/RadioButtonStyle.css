@@ -1,0 +1,28 @@
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: #000;
+    -fx-background-color: white;
+    
+    -fx-border-radius: 1px;
+    -fx-padding: 2px;
+}
+.radio-button .radio:selected {
+    -fx-background-color: white;
+    
+}
+.radio-button -radio:armed {
+    -fx-background-color: white;
+    
+}
+.radio-button -radio:determinate {
+    -fx-background-color: white;
+    
+}
+.radio-button -radio:indeterminate {
+    -fx-background-color: white;
+    
+}
+.radio-button .dot {
+    -fx-background-radius: 2px;
+    -fx-padding: 6px;
+}
